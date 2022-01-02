@@ -21,3 +21,5 @@ public:
         return ans;
     }
 };
+
+// Use hash for each string in map rather than using sorting, it will save the factor of extra log(len(string))
