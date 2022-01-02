@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        unordered_map<string, vector<string>> m;
+        vector<vector<string>> ans;
+        for(auto it: strs) {
+            int f[26] = {0};
+            for(auto it2: it) {
+                f[it2 - 'a']++;
+            }
+            string hash = "#";
+            for(auto it2: f) {
+                hash += it2;
+            }
+            m[hash].push_back(it);
+        }
+        for(auto it: m) {
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
