@@ -1,0 +1,28 @@
+public:
+    string printMinNumberForPattern(string S){
+        // code here 
+        stack<int> s;
+        int st = 1;
+        string ans = "";
+        for(int i = 0; i < S.size(); i++) {
+            if(S[i] == 'D') {
+                s.push(st++);
+            } 
+            else {
+                s.push(st++);
+                while(s.size() > 0) {
+                    ans += to_string(s.top());
+                    s.pop();
+                }
+            }
+        }
+        s.push(st);
+        while(s.size() > 0) {
+            ans += to_string(s.top());
+            s.pop();
+        }
+        return ans;
+    }
+};
+
+// every 'I' will act as a breakpoint and order of elements will be reversed everytime
