@@ -1,0 +1,24 @@
+
+class Solution{
+    #define ll long long int
+  public:
+    int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
+        ll pro = 1;
+        int end = 0, start = 0;
+        int cnt = 0;
+        while(end < n) {
+            pro *= a[end];
+            
+            while(pro >= k && start < end) {
+                pro /= a[start++];
+            }
+            if(pro < k) {
+                cnt += end - start + 1;
+            }
+            end++;
+        }
+        return cnt;
+    }
+};
+
+// sliding window is used with the idea of contraction and expansion.
