@@ -1,0 +1,19 @@
+string encode(string src)
+{     
+  //Your code here 
+  string ans = "";
+  int n = src.size();
+  for(int i = 0; i < n; i++) {
+      int j = i;
+      int len = 0;
+      while(j < n && src[j] == src[i]) {
+          j++;
+          len++;
+      }
+      ans.push_back(src[i]);
+      ans += to_string(len);
+      i = j - 1;
+  }
+  return ans;
+}     
+ 
