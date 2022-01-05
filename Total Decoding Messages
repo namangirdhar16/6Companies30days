@@ -1,0 +1,35 @@
+ #define mod 1000000007
+	public:
+	    int dp[10001];
+    
+  int dfs(string s, int idx, int n)
+    {
+        if(idx == n)
+            return 1;
+        
+        int ans = 0;
+        if(s[idx] == '0')
+            return 0;
+         if(dp[idx] != -1)
+            return dp[idx] % mod;
+        
+        if(idx + 1 < n && (s[idx] - '0') * 10 + (s[idx + 1] - '0') <= 26) {
+           ans = dfs(s, idx + 2, n) % mod;
+        }
+        ans += dfs(s, idx + 1, n) % mod;
+        dp[idx] = ans % mod;
+        return ans % mod;
+            
+    }
+    int numDecodings(string s) {
+        
+        memset(dp, -1, sizeof dp);
+        int n = s.size();
+        return dfs(s, 0, n) % mod;
+    }
+		int CountWays(string str){
+		    // Code here
+		    return numDecodings(str) % mod;
+		}
+
+};
