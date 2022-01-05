@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool digit(char s) {
+        if(s >= '0' && s <= '9') return true;
+        return false;
+    }
+    string decode(string s, int &i) {
+        
+         string result;
+        while(i < s.length() && s[i] != ']'){
+            if(digit(s[i])){
+                int k = 0;
+                while(i < s.length() && digit(s[i]))
+                    k = k*10 + s[i++] - '0';
+                i++;
+                string r = decode(s, i);
+                while(k-- > 0)
+                    result += r;
+                i++;
+            } else
+                result += s[i++];
+        }
+        return result;
+    }
+    string decodeString(string s) {
+        int i = 0;
+        string ans = decode(s, i);
+        return ans;
+    }
+};
