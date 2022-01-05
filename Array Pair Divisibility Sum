@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canArrange(vector<int>& arr, int k) {
+        int n = arr.size();
+        if(n & 1) {
+            return false;
+        }
+        map<int, int> m;
+        for(auto &it: arr) {
+            while(it < k) it += k;
+            m[it % k]++;
+        }
+        for(auto &it: m) {
+           if(it.first == 0) {
+               if(it.second & 1) {
+                   return false;
+               }
+           }
+           else {
+               int rem = k - it.first;
+               if(it.second != m[rem]) return false;
+           }
+        }
+        return true;
+    }
+    // case for 0 and other rems separate
+};
