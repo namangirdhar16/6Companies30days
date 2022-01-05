@@ -1,0 +1,34 @@
+public:
+    int *findTwoElement(int *arr, int n) {
+        // code here
+        int x = 0;
+        int y = 0;
+        int xo = 0;
+        for(int i = 0; i < n; i++) {
+            xo = xo xor arr[i];
+        }
+        for(int i = 0; i < n; i++) {
+            xo = xo xor (i + 1);
+        }
+        int rsb = xo & -xo;
+        for(int i = 0; i < n; i++) {
+            if((arr[i] & rsb) == 0) y = y xor arr[i];
+            else x = x xor arr[i];
+        }
+        for(int i = 0; i < n; i++) {
+            if(((i + 1) & rsb) == 0) y = y xor (i + 1);
+            else x = x xor (i + 1);
+        }
+        int *a = new int[2];
+        for(int i = 0; i < n; i++) {
+            if(arr[i] == x) {
+                a[0] = x, a[1] = y;
+            }
+            else if(y == arr[i]) {
+                a[0] = y, a[1] = x;
+            }
+        }
+        return a;
+        
+    }
+};
