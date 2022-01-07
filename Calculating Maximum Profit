@@ -1,0 +1,35 @@
+class Solution {
+public:
+    long long dp[100005][5];
+    long long dfs(vector<int> &prices, int i, int trans_state) {
+        
+        if(i >= prices.size()) {
+            if(trans_state == 0) return 0;
+            else return INT_MIN;
+        }
+        if(trans_state < 0) return INT_MIN;
+        if(dp[i][trans_state] != -1) {
+            return dp[i][trans_state];
+        }
+        int buy_state = (trans_state % 2 == 0) ? -1 : 1;
+        long long a = INT_MIN, b = INT_MIN;
+        // case1: (i)th element is used in ans
+        a = prices[i] * 1LL * buy_state + dfs(prices, i + 1, trans_state - 1);
+        // case2: (i)th element is not used in ans
+        b = dfs(prices, i + 1, trans_state);
+        return dp[i][trans_state] = max(a, b);
+    }
+    int maxProfit(vector<int>& prices) {
+        // observations: 
+        //-> 0 transaction or 1 transaction or 2 transaction
+        //-> ith day can be included in the transaction or can be excluded.
+        // ith day is included then it will contribute prices[i] to the ans
+        // ith day is exclued then it will contribute -prices[i] to the ans
+        // 2 actions -> 0th action -> buy that stock 
+        //           -> 1st action -> sell that stock
+        memset(dp, -1, sizeof dp);
+        long long ans = max(1LL * dfs(prices, 0, 2), 1LL * dfs(prices, 0, 4));
+        ans = max(0LL, ans);
+        return ans;
+    }
+};
