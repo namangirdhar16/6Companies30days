@@ -1,0 +1,31 @@
+Question Link: https://practice.geeksforgeeks.org/problems/deee0e8cf9910e7219f663c18d6d640ea0b87f87/1/
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        
+        
+        deque<int> dq;
+        int start = 0;
+        int n = nums.size();
+        int end = k - 1;
+        for(int i = start; i <= end; i++) {
+            while(dq.size() > 0 && nums[dq.back()] <= nums[i]) dq.pop_back();
+            dq.push_back(i);
+        }
+        vector<int> ans;
+        ans.push_back(dq.front());
+        start++, end++;
+        while(end < n) {
+            while(dq.size() > 0 && nums[dq.back()] <= nums[end]) dq.pop_back();
+            while(dq.size() > 0 && dq.front() < start) dq.pop_front();
+            dq.push_back(end);
+            ans.push_back(dq.front());
+            end++, start++;
+        }
+        for(auto &it: ans) {
+            it = nums[it];
+        }
+        return ans;
+    }
+};
