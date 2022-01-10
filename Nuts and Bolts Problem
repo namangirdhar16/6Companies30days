@@ -1,0 +1,33 @@
+	void matchPairs(char nuts[], char bolts[], int n) {
+	    // code here
+	    vector<char> order{'!', '#', '$', '%', '&', '*', '@', '^', '~'};
+	    map<char, int> m1, m2;
+	    for(int i = 0; i < n; i++) {
+	        m1[nuts[i]] = 1;
+	    }
+	    for(int i = 0; i < n; i++) {
+	        m2[bolts[i]] = 1;
+	    }
+	    vector<char> ans;
+	    int cnt = 0;
+	    for(auto it: order) {
+	        if(m1[it] > 0 && m2[it] > 0) {
+	           ans.push_back(it);
+	           //cout << it << " ";
+	           cnt++;
+	        }
+	    }
+	    //cout << cnt << endl;
+	    //return;
+	    for(auto it: ans) {
+	        cout << it << " ";
+	    }
+	    cout << endl;
+	    for(auto it: ans) {
+	        cout << it << " ";
+	    }
+	    cout << endl;
+	    
+	}
+  
+  Note: This problem also had a solution using quick sort, which you need to revisit, for now it's a hashing solution.
