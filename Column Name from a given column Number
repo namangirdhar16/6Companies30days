@@ -1,0 +1,21 @@
+string colName (long long int n)
+    {
+        // your code here
+        vector<int> ans;
+        while(n > 0) {
+            ans.push_back(n % 26);
+            if(n % 26 == 0)
+            n = n / 26 - 1;
+            else n = n / 26;
+        }
+        reverse(ans.begin(), ans.end());
+        string s = "";
+        for(auto it: ans) {
+            // cout << it << " ";
+            if(it == 0) s.push_back('Z');
+            else
+            s.push_back(char(it + 'A' - 1));
+        }
+        
+        return s;
+    }
