@@ -1,0 +1,16 @@
+string FirstNonRepeating(string A){
+		    // Code here
+		    int m[26] = {0};
+		    queue<char> q;
+		    string ans = "";
+		    for(auto it: A) {
+		        q.push(it);
+		        m[it - 'a']++;
+		        while(q.size() > 0 && m[q.front() - 'a'] > 1) {
+		            q.pop();
+		        }
+		        if(q.size() == 0) ans += "#"; 
+		        else ans += q.front();
+		    }
+		    return ans;
+		}
