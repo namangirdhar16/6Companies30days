@@ -1,0 +1,75 @@
+    bool isValid(int i,int j,vector<vector<int>> &grid)
+    {
+        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size())
+            return 0;
+        else
+        {
+            if(grid[i][j]==1)
+                return 1;
+            else
+                return 0;
+        }
+    }
+    void goAdj(int i,int j,vector<vector<int>> &grid,int & fresh_oranges,queue<pair<int,int>> &q)
+    {
+        if(isValid(i+1,j,grid))
+        {
+            grid[i+1][j] += 1;
+            fresh_oranges--;
+            q.push({i+1,j});
+        }
+        if(isValid(i-1,j,grid) )
+        {
+            grid[i-1][j] += 1;
+            fresh_oranges--;
+            q.push({i-1,j});
+        }
+        if(isValid(i,j+1,grid))
+        {
+            grid[i][j+1] += 1;
+            fresh_oranges--;
+            q.push({i,j+1});
+        }
+        if(isValid(i,j-1,grid))
+        {
+            grid[i][j-1] += 1;
+            fresh_oranges--;
+            q.push({i,j-1});
+        }
+    }
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        queue<pair<int,int>>q;
+        int fresh_oranges = 0;
+        int H = grid.size();
+        int W = grid[0].size();
+        
+        for(int i=0;i<H;i++)
+        {
+            for(int j=0;j<W;j++)
+            {
+                if(grid[i][j]==2)
+                    q.push({i,j});
+                else if(grid[i][j])
+                    fresh_oranges++;
+            }
+        }
+        int time_frame = 0;
+        if(fresh_oranges==0)
+            return 0;
+        while(!q.empty())
+        {   
+            int s = q.size();
+            while(s--)
+            {
+              pair<int,int> front = q.front();
+              q.pop();
+              goAdj(front.first,front.second,grid,fresh_oranges,q);
+              //time_frame++;
+            }
+           time_frame++;
+        }
+        
+        return fresh_oranges > 0 ? -1 : time_frame - 1; 
+    }
+};
