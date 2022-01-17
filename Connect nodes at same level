@@ -1,0 +1,28 @@
+void dfs2(Node *left, Node * right) {
+        if(left == NULL || right == NULL) {
+           return;
+        }
+        left->next = right;
+        dfs2(left->right, right->left);
+    }
+    Node* dfs(Node * root) {
+        if(root == NULL) {
+            return root;
+        }
+        if(!root->left && !root->right) {
+            root->next = NULL;
+            return root;
+        }
+        Node* left = dfs(root->left);
+        Node* right = dfs(root->right);
+        left->next = right;
+        right->next = NULL;
+        root->next = NULL;
+        dfs2(root->left, root->right);
+        return root;
+    }
+    Node* connect(Node* root) {
+        dfs(root);
+        return root;
+        
+    }
