@@ -1,0 +1,20 @@
+vector<string> generate(int N)
+{
+	// Your code here
+	vector<string> ans;
+	for(int i = 1; i <= N; i++) {
+	    int num = i;
+	    string p = "";
+	    while(num > 0) {
+	       // cout <<  num % 2 << " ";
+	        p.push_back(char(num % 2 + '0'));
+	        num /= 2;
+	    }
+	   // cout << p << endl;
+	    reverse(p.begin(), p.end());
+	    ans.push_back(p);
+	}
+	
+	return ans;
+	
+}
