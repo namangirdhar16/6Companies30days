@@ -1,0 +1,25 @@
+int dp[1000][1000];
+    int dfs(vector<int> &A, int left, int right, int n) {
+        if(left == right) {
+            return A[left];
+        }
+        if(right - left == 1) {
+            return max(A[left], A[right]);
+        }
+        int &ans = dp[left][right];
+        if(ans != -1) return ans;
+        int one = dfs(A, left + 1, right - 1, n);
+        int two = dfs(A, left + 2, right, n);
+        int three = dfs(A, left, right - 2, n);
+        int ans1 = A[left] + min(one, two);
+        int ans2 = A[right] + min(one, three);
+        return ans = max(ans1, ans2);
+        
+    }
+    int maxCoins(vector<int>&A,int n)
+    {
+	    //Write your code here
+	    memset(dp, -1, sizeof dp);
+	    int ans = dfs(A, 0, n - 1, n);
+	    return ans;
+    }
