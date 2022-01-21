@@ -1,0 +1,38 @@
+int lis(vector<int> &nums, int n) {
+        vector<int> dp;
+        for(int i = 0; i < n; i++) {
+            auto it = lower_bound(dp.begin(), dp.end(), nums[i]);
+            if(it != dp.end()) {
+                *it = min(*it, nums[i]);
+            }
+            else {
+                dp.push_back(nums[i]);
+            }
+        }
+        return dp.size();
+    }
+    int minInsAndDel(int A[], int B[], int N, int M) {
+        // code here
+        vector<int> nums;
+        set<int> b;
+        for(int i = 0; i < M; i++) {
+            b.insert(B[i]);
+        }
+        for(int i = 0; i < N; i++) {
+            auto it = b.find(A[i]);
+            if(it != b.end()) {
+                nums.push_back(A[i]);
+            }
+        } 
+        int n = nums.size();
+        // cout << n << endl;
+        // for(auto it: nums) {
+        //     cout << it << " ";
+        // }
+        // cout << endl;
+        int len = lis(nums, n);
+        //cout << len << endl;
+        int needed = M - len;
+        int extra = N - len;
+        return needed + extra;
+    }
