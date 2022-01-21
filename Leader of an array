@@ -1,0 +1,31 @@
+vector<int> leaders(int a[], int n){
+        // Code here
+        int left[n], right[n];
+        stack<int> st;
+        for(int i = n - 1; i >= 0; i--) {
+            if(i == n - 1) {
+                right[i] = 0;
+                st.push(i);
+            }
+            else {
+                int len = 0;
+                while(st.size() > 0 && a[st.top()] <= a[i]) {
+                    st.pop();
+
+                }
+                right[i] = (n - i - 1) - st.size();
+                st.push(i);
+            }
+        }
+        
+        vector<int> ans;
+        for(int i = 0; i < n; i++) {
+            int dis = n - i - 1;
+            // cout << right[i] << " ";
+            if(dis == right[i]) {
+                ans.push_back(a[i]);
+            }
+        }
+        // cout << endl;
+        return ans;
+    }
