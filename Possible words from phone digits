@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string>mapp{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void dfs(string digits,int start,string temp,vector<string> & ans)
+    {
+        if(start==digits.size())
+        {   
+            if(temp!="")
+            ans.push_back(temp);
+            return ;
+        } 
+        auto mapp_value = mapp[digits[start] - '0'];
+        for(auto ch: mapp_value)
+        {
+            dfs(digits,start+1,temp+ch,ans);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        
+        vector<string> ans;
+        dfs(digits,0,"",ans);
+        return ans;
+    }
+};
