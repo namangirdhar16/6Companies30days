@@ -1,0 +1,43 @@
+class Solution{
+    public:
+    
+    string findOrder(string dict[], int N, int K) {
+        //code here 
+        int indeg[26] = {0};
+        map<int, vector<int>> adj;
+        for(int i = 0; i < N - 1; i++) {
+            //for(int j = i + 1; j < N; j++) {
+                string curr = dict[i];
+                string next = dict[i + 1];
+                for(int k = 0; k < min(curr.size(), next.size()); k++) {
+                    if(curr[k] != next[k]) {
+                        indeg[next[k] - 'a']++;
+                        adj[curr[k] - 'a'].push_back(next[k] - 'a');
+                        break;
+                    }
+                }
+           // }
+        }
+        queue<int> q;
+        for(int i = 0; i < 26; i++) {
+            if(indeg[i] == 0 && adj.find(i) != adj.end()) {
+                q.push(i);
+            }
+        }
+        string res = "";
+        //cout << q.size() << endl;
+        while(q.size() > 0) {
+            int node = q.front();
+            q.pop();
+            res += char(node + 'a');
+            for(auto it: adj[node]) {
+                indeg[it]--;
+                if(indeg[it] == 0) {
+                    q.push(it);
+                }
+            }
+        }
+        //cout << res << endl;
+        return res;
+    }
+};
