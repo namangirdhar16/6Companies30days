@@ -1,0 +1,21 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string a, b;
+    cin >> a >> b;
+    stringstream a1(a);
+    stringstream b1(b);
+    string na, nb;
+    while(getline(a1, a, '.')) {
+      na += a;
+    }
+    while(getline(b1, b, '.')) {
+      nb += b;
+    }
+    if(na < nb) {
+      cout << "first one is more recent" << endl;
+    }
+    else cout << "second one is more recent" << endl;
+}
