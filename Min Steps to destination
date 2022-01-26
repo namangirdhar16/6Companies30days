@@ -1,0 +1,19 @@
+int minSteps(int D){
+        // code here
+        D = abs(D);
+        int steps = 0;
+        int dis = 0;
+        while(dis < D) {
+            steps++;
+            dis += steps;
+        }
+        int diff = dis - D;
+        if(diff % 2 == 0) {
+            return steps;
+        }
+        diff += steps + 1;
+        if(diff & 1) {
+            return steps + 2;
+        }
+        return steps + 1;
+    }
