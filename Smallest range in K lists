@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        
+        vector<int> range{-100005, 100005};
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
+        int maxi = INT_MIN, n = nums.size(), diff = INT_MAX;
+        for(int i = 0; i < n; i++) {
+            if(nums[i][0] > maxi) {
+               maxi = nums[i][0];
+            }
+            pq.push({nums[i][0], i, 0});
+        }
+        while(pq.size() > 0) {
+            vector<int> mini = pq.top();
+            pq.pop();
+            int new_diff = maxi - mini[0];
+            if(new_diff < diff) {
+                diff = new_diff;
+                range = {mini[0], maxi};
+            }
+            if(mini[2] + 1 < nums[mini[1]].size()) {
+                if(nums[mini[1]][mini[2] + 1] > maxi) {
+                    maxi = nums[mini[1]][mini[2] + 1];
+                }
+                pq.push({nums[mini[1]][mini[2] + 1], mini[1], mini[2] + 1});
+            }
+            else break;
+        }
+        return range;
+    }
+};
