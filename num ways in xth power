@@ -1,0 +1,33 @@
+#define mod 1000000007
+
+class Solution{
+    public:
+    int expo(int a, int b) {
+        if(b == 0) return 1;
+        if(b == 1) return a;
+        int ans = expo(a, b / 2) % mod;
+        if(b & 1) return (((ans % mod * (ans % mod)) % mod) * a) % mod;
+        return ((ans % mod) * (ans % mod)) % mod;
+    }    
+    int dp[1001][1001];
+   int dfs(int n, int x, int num)
+  {
+    // Base cases
+    int val = (n - expo(num, x));
+    if (val == 0)
+        return 1;
+    if (val < 0)
+        return 0;
+    if(dp[n][num] != -1) return dp[n][num];
+    // Consider two possibilities, num is
+    // included and num is not included.
+    return dp[n][num] = (dfs(val, x, num + 1) % mod +
+           dfs(n, x, num + 1) % mod) % mod;
+   }
+    int numOfWays(int n, int x)
+    {
+        // code here
+        memset(dp, -1, sizeof dp);
+        return dfs(n, x, 1);
+    }
+};
