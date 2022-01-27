@@ -1,0 +1,13 @@
+#define mod 1000000007
+    long long power(int N,int R)
+    {
+       //Your code here
+       if(R == 0) return 1;
+       if(R == 1) return N;
+       long long ans = power(N, R / 2);
+       if(R & 1) {
+           return ((((ans % mod) * (ans % mod)) % mod) * N % mod) % mod;
+       }
+       return ((ans % mod) * (ans % mod)) % mod;
+        
+    }
