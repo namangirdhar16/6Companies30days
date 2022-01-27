@@ -1,0 +1,31 @@
+bool vis[501][501];
+    bool dfs(int i, int j, string word, vector<vector<char>> &board, int idx) {
+        if(idx >= word.size()) return true;
+        if(i >= 0 && j >= 0 && i < board.size() && j < board[0].size() && board[i][j] == word[idx] && !vis[i][j]) {
+            vis[i][j] = true;
+            bool ans = false;
+            ans |= dfs(i + 1, j, word, board, idx + 1);
+            ans |= dfs(i, j + 1, word, board, idx + 1);
+            ans |= dfs(i - 1, j, word, board, idx + 1);
+            ans |= dfs(i, j - 1, word, board, idx + 1);
+            vis[i][j] = false;
+            return ans;
+        }
+        return false;
+    }
+    bool isWordExist(vector<vector<char>>& board, string word) {
+        // Code here
+        int n = board.size();
+        int m = board[0].size();
+        memset(vis, false, sizeof vis);
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                //memset(vis, false, sizeof vis);
+                if(board[i][j] == word[0] && !vis[i][j]) {
+                    bool ans = dfs(i, j, word, board, 0);
+                    if(ans) return true;
+                }
+            }
+        }
+        return false;
+    }
