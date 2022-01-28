@@ -1,0 +1,29 @@
+class Solution {
+public:
+    double x_center, y_center;
+    double radius;
+    Solution(double radius, double x_center, double y_center) {
+        this->radius = radius;
+        this->x_center = x_center;
+        this->y_center = y_center;
+    }
+    
+    
+    vector<double> randPoint() {
+        // A - r2
+        // newA - random * r2
+        // newA - (sqrt(random) * r)2
+        // newr - (sqrt(random) * r)
+        double rad = (double)rand() / RAND_MAX;
+        double newr = sqrt(rad) * radius;
+        double angle = (double)rand() / RAND_MAX;
+        angle *= 360.0;
+        return {x_center + newr * cos(angle) , y_center + newr * sin(angle)};
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(radius, x_center, y_center);
+ * vector<double> param_1 = obj->randPoint();
+ */
