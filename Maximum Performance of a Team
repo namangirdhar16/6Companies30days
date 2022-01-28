@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxPerformance(int n, vector<int>& speed, vector<int>& eff, int k) {
+        
+        vector<pair<int, int>> arr;
+        for(int i = 0; i < n; i++) {
+            arr.push_back({speed[i], eff[i]});
+        }
+        sort(arr.begin(), arr.end(), [&](pair<int, int> &a, pair<int, int> &b){
+            return a.second > b.second;
+        });
+        priority_queue<int, vector<int>, greater<int>> pq;
+        long long sum = 0;
+        long long maxi = 0;
+        int len = 0;
+        for(int i = 0; i < n; i++) {
+            if(pq.size() < k) {
+                pq.push(arr[i].first);
+                len++;
+                sum += arr[i].first;
+                maxi = max(sum * arr[i].second, maxi);
+            }
+            else {
+                len = 0;
+                int sp = pq.top();
+                pq.pop();
+                sum -= sp;
+                i--;
+            }
+        }
+        return maxi % 1000000007; 
+    }
+    
+};
