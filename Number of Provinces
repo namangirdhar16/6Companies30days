@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool visited[201];
+    void dfs(vector<vector<int>> &mat, int i)
+    {
+        visited[i] = true;
+        for(int j = 0; j < mat[i].size(); j++)
+        {
+            if(j != i && mat[i][j] && !visited[j])
+                dfs(mat, j);
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+       int cnt = 0;
+       int n = isConnected.size();
+       int m = isConnected[0].size();
+       memset(visited, false, sizeof visited);
+       for(int i = 0; i < n; i++)
+       {
+           if(!visited[i])
+           {
+               cnt++;
+               dfs(isConnected, i);
+           }
+       }
+        return cnt;
+    }
+};
