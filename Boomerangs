@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int compute_dis(int x1, int y1, int x2, int y2) {
+        return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+    }
+    int numberOfBoomerangs(vector<vector<int>>& points) {
+        int cnt = 0;
+        map<int, int> m;
+        int n = points.size();
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(i == j) continue;
+                int d = compute_dis(points[i][0], points[i][1], points[j][0], points[j][1]);
+                m[d]++;
+            }
+            for(auto it: m) {
+                cnt += it.second * (it.second - 1);
+            }
+            m.clear();
+        }
+        //int cnt = 0;
+        return cnt;
+    }
+};
