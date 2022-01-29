@@ -1,0 +1,16 @@
+pair<int, int> dfs_sum_cnt(Node* root, int X) {
+    if(root == NULL) return {0, 0};
+    pair<int, int> leftAns = dfs_sum_cnt(root->left, X);
+    pair<int, int> rightAns = dfs_sum_cnt(root->right, X);
+    int sum = leftAns.first + rightAns.first + root->data;
+    int cnt = 0;
+    if(sum == X) cnt++;
+    return {sum, leftAns.second+ rightAns.second + cnt};
+}
+//Function to count number of subtrees having sum equal to given sum.
+int countSubtreesWithSumX(Node* root, int X)
+{
+	// Code here
+	pair<int, int> ans = dfs_sum_cnt(root, X);
+	return ans.second;
+}
