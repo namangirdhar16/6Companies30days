@@ -1,0 +1,40 @@
+class Solution {
+public:
+    
+     bool valid(vector<int>& nums, int mid, int m) {
+        int d = 1;
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            if(sum > mid) {
+                d++;
+                sum = nums[i];
+            }  
+        }
+        return d <= m;
+    }
+    
+    int splitArray(vector<int>& nums, int m) {
+        int  lo = 0;
+        int hi = 0;
+        for(auto val : nums){
+            lo = max(val, lo);
+            hi += val;
+        }
+         if(m == nums.size()){
+             return lo;
+         } 
+        int ans = 0;
+        while(lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if(valid(nums, mid, m) == true) {
+               ans = mid;
+               hi = mid - 1;
+            }
+            else 
+              lo = mid + 1;
+        }
+        return ans;
+        
+    }
+};
