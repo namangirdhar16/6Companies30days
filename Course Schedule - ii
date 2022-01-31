@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        vector<int> g[numCourses];
+        int indeg[numCourses];
+        memset(indeg, 0, sizeof(indeg));
+        for (auto& p : prerequisites) {
+            g[p[1]].push_back(p[0]);
+            indeg[p[0]]++;
+        }
+
+        queue<int> starts;
+        for (int i = 0; i < numCourses; ++i) {
+            if (indeg[i] == 0)
+                starts.push(i);
+        }
+
+        vector<int> visited;
+        while (!starts.empty()) {
+            int curr = starts.front(); starts.pop();
+            visited.push_back(curr);
+            for (auto& x : g[curr]) {
+                if (--indeg[x] == 0)
+                    starts.push(x);
+            }
+        }
+        
+        if (visited.size() != numCourses) return {};
+        return visited;
+        
+    }
+};
