@@ -1,0 +1,40 @@
+bool dfs(int c,int d,vector<int>vec[],vector<bool>& visited)
+    {
+        //it's mean you are able to reach the point from start to destination node
+        if(c==d)
+        {
+            return true;
+        }
+        visited[c] = true;
+        for(auto x : vec[c])
+        {
+            if(!visited[x])
+            {
+                if(dfs(x,d,vec,visited))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        //first creat one vec array without including the c and d node
+        vector<int> vec[V];
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++)
+        {
+            for( auto x : adj[i])
+            {
+                if((x==c and i==d) || (x==d and i==c))
+                {
+                    continue;
+                }
+                vec[i].push_back(x);
+            }
+        }
+        //take negation there because it will return answer that it will connect so if connect then actual answer is false
+        return !dfs(c,d,vec,visited);
+        
+    }
